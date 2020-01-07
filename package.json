@@ -1,22 +1,16 @@
 {
   "name": "monstera-bot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "micro",
-    "dev": "micro-dev",
-    "debug": "node --inspect node_modules/.bin/micro-dev"
-  },
+  "description": "Monstera is a houseplant that needs water as every other plant. MonsteraBot reminds you to water your plant.",
+  "main": "api/index.js",
   "author": "Janik Vonrotz",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "micro": "^9.3.4",
-    "node-telegram-bot-api": "^0.40.0"
+    "node-fetch": "^2.6.0",
+    "db": "./db"
   },
   "devDependencies": {
-    "micro-dev": "^3.0.0",
     "standard": "^14.3.1"
   }
 }
