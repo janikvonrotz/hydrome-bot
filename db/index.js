@@ -1,4 +1,5 @@
 var redis = require('redis')
+const { promisify } = require('util')
 
 // Create cached connection variable
 let cachedClient = null
@@ -9,8 +10,12 @@ const createClient = (uri) => {
     return cachedClient
   }
 
+  // Parse url and get pass
+  const parsedUrl = new URL(uri)
+
   // Otherwise create a new client
-  const client = redis.createClient(uri)
+  var client = redis.createClient(uri)
+  client.auth(parsedUrl.username)
   cachedClient = client
 
   // Return new client
@@ -19,7 +24,9 @@ const createClient = (uri) => {
 
 // Function that returns redis client
 const db = () => {
-  return createClient(process.env.REDIS_URI)
+  var client = createClient(process.env.REDIS_URI)
+  client.getAsync = promisify(client.get).bind(client)
+  return client
 }
 
 module.exports = db

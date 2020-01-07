@@ -11,6 +11,10 @@
     "db": "./db"
   },
   "devDependencies": {
+    "ava": "^2.4.0",
     "standard": "^14.3.1"
+  },
+  "scripts": {
+    "test": "ava"
   }
 }
