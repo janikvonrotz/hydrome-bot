@@ -1,0 +1,22 @@
+{
+  "name": "monstera-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro",
+    "dev": "micro-dev",
+    "debug": "node --inspect node_modules/.bin/micro-dev"
+  },
+  "author": "Janik Vonrotz",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "micro": "^9.3.4",
+    "node-telegram-bot-api": "^0.40.0"
+  },
+  "devDependencies": {
+    "micro-dev": "^3.0.0",
+    "standard": "^14.3.1"
+  }
+}

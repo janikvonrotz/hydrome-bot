@@ -1,0 +1,6 @@
+{
+    "env": {
+      "TELEGRAM_TOKEN": "@monstera_bot_telegram_token"
+    }
+  }
+  
