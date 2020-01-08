@@ -2,7 +2,7 @@
 
 Monstera is a houseplant that needs water as every other plant. MonsteraBot is a Telegram bot that reminds you to water your plants. It runs as a serverless function on [Now](https://zeit.co/download), uses [RedisLabs](https://app.redislabs.com/) to store its state and utilizes [GitHub Actions](https://github.com/features/actions) to schedule reminders.
 
-Telegram link: [t.me/MonsteraBot](tg://resolve?domain=MonsteraBot)
+Telegram link: [t.me/MonsteraBot](https://t.me/MonsteraBot)
 
 ## Setup
 
