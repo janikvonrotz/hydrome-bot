@@ -1,6 +1,8 @@
 class Reminder {
   constructor (name) {
     this.name = name
+    this.created_at = new Date()
+    this.last_run = new Date()
   }
 
   setName (value) {
@@ -11,9 +13,25 @@ class Reminder {
     return this.name
   }
 
-  setSchedule (value) {}
+  setSchedule (value) {
+    this.schedule = value
+  }
 
-  getSchedule () {}
+  getSchedule () {
+    return this.schedule
+  }
+
+  setLastRun (value) {
+    this.name = value
+  }
+
+  getLastRun () {
+    return this.last_run
+  }
+
+  getCreatedAt () {
+    return this.created_at
+  }
 }
 
 module.exports = Reminder
