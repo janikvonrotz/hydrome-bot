@@ -1,7 +1,7 @@
 {
     "env": {
-      "TELEGRAM_TOKEN": "@monstera_bot_telegram_token",
-      "REDIS_URI": "@monstera_bot_redis_uri"
+      "TELEGRAM_TOKEN": "@hydrome_bot_telegram_token",
+      "REDIS_URI": "@hydrome_bot_redis_uri"
     }
   }
   

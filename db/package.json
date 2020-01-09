@@ -2,6 +2,7 @@
     "name": "db",
     "version": "1.0.0",
     "dependencies": {
+        "bluebird": "^3.7.2",
         "redis": "^2.8.0"
     }
 }

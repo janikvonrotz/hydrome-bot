@@ -1,13 +1,21 @@
 const db = require('db')
 
-// Stores the state of the user conversation
 module.exports = {
-  setState: (key, value) => {
+  set: (key, value) => {
     console.log('SETSTATE', key, value)
-    db().set(key, value)
+    db.set(key, value)
   },
-  getState: async (key) => {
-    return db().getAsync(key)
+  get: async (key) => {
+    return db.getAsync(key)
+  },
+  del: (key) => {
+    db.del(key)
+  },
+  hset: (hash, field, value) => {
+    console.log('HSETSTATE', hash, field, value)
+    db.hset(hash, field, value)
+  },
+  hget: async (hash, field) => {
+    return db.hgetAsync(hash, field)
   }
-  // pushState
 }

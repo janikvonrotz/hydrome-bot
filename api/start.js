@@ -4,6 +4,6 @@ const sendMessage = require('./send-message')
 module.exports = async (message) => {
   await sendMessage({
     chat_id: message.chat.id,
-    text: 'Hi, I am the MonsteraBot hosted on Zeit Now.'
+    text: 'Hi, I am HydromeBot. Let me know if I should remind you of watering your plants.'
   })
 }

@@ -2,7 +2,7 @@
 require('dotenv').config()
 const start = require('./start')
 const setreminder = require('./setreminder')
-const { getState } = require('./state')
+const { get } = require('./state')
 
 module.exports = async (req, res) => {
   console.log('BODY: ', req.body)
@@ -14,25 +14,23 @@ module.exports = async (req, res) => {
     const message = req.body.message
 
     // Build context
-    const context = {
-      state: await getState(`state:${message.chat.id}`)
+    const ctx = {
+      request: await get(`request:${message.chat.id}`)
     }
 
     // Request is either current state if set or message text 
-    const request = context.request || message.text
-
-    console.log('REQUEST', request)
+    ctx.request = ctx.request || message.text
 
     // Match text request
-    if (request.match('/start(.*)')) {
-      await start(message, context)
+    if (ctx.request.match('/start(.*)')) {
+      await start(message, ctx)
     }
 
-    if (request.match('/setreminder(.*)')) {
-      await setreminder(message, context)
+    if (ctx.request.match('/setreminder(.*)')) {
+      await setreminder(message, ctx)
     }
   }
 
   // Send default message
-  res.end('This is the MonsteraBot api.')
+  res.end('This is the HydromeBot API.')
 }

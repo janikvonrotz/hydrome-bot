@@ -6,10 +6,13 @@ class Reminder {
   setName (value) {
     this.name = value
   }
+
   getName () {
     return this.name
   }
+
   setSchedule (value) {}
+
   getSchedule () {}
 }
 

@@ -36,6 +36,12 @@ Deploy with now.
 
 Then set the Telegram bot wehook with curl.
 
-`curl https://api.telegram.org/bot$TELEGRAM_TOKEN/setWebhook?url=<your deployment url goes here>`
+`curl https://api.telegram.org/bot$TELEGRAM_TOKEN/setWebhook?url=<your deployment url goes here>/api`
 
 Test the bot by writing `/start`.
+
+## Troubleshooting
+
+Check status on your webhook.
+
+`curl https://api.telegram.org/bot$TELEGRAM_TOKEN/getWebhookInfo`

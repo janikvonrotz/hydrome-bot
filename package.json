@@ -1,14 +1,16 @@
 {
-  "name": "monstera-bot",
+  "name": "hydrome-bot",
   "version": "1.0.0",
-  "description": "Monstera is a houseplant that needs water as every other plant. MonsteraBot reminds you to water your plant.",
+  "description": "HydromeBot is a Telegram bot that reminds you to water your plants.",
   "main": "api/index.js",
   "author": "Janik Vonrotz",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.7.2",
+    "db": "./db",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.0",
-    "db": "./db"
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "ava": "^2.4.0",

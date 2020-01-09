@@ -1,15 +1,15 @@
 const sendMessage = require('./send-message')
-const { setState } = require('./state')
+const { set, del } = require('./state')
 
 // Processes messages matching /setreminder
-module.exports = async (message, context) => {
+module.exports = async (message, ctx) => {
   const chatId = message.chat.id
-  const request = context && context.request
+  const request = ctx && ctx.request
 
   // Check state
-  console.log('CONTEXT', context)
+  console.log('CONTEXT', ctx)
 
-  if (request.match('/setreminder/name')) {
+  if (request === '/setreminder/name') {
     await sendMessage({
       chat_id: chatId,
       text: `Your plants name is: ${message.text}`
@@ -20,10 +20,10 @@ module.exports = async (message, context) => {
     // setState(`edit:reminder:${chatId}`, JSON.stringify(reminder))
 
     // Set state
-    setState(`request:${chatId}`, '/setreminder/schedule')
+    set(`request:${chatId}`, '/setreminder/schedule')
   }
 
-  if (request.match('/setreminder')) {
+  if (request === '/setreminder') {
     // Send message
     await sendMessage({
       chat_id: chatId,
@@ -31,16 +31,16 @@ module.exports = async (message, context) => {
     })
 
     // Set state
-    setState(`request:${chatId}`, '/setreminder/name')
+    set(`request:${chatId}`, '/setreminder/name')
   }
 
-  if (request.match('/setreminder/schedule')) {
+  if (request === '/setreminder/schedule') {
     await sendMessage({
       chat_id: chatId,
-      text: 'After which time period would you like to be remindend?'
+      text: 'At which interval would you like to be remindend?'
     })
 
     // Set state
-    setState(`request:${chatId}`, null)
+    del(`request:${chatId}`)
   }
 }

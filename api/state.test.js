@@ -1,9 +1,21 @@
 require('dotenv').config()
 const test = require('ava')
-const { setState, getState } = require('./state')
+const { set, get, del, hset, hget } = require('./state')
 
-test('db set key', async t => {
-  setState('foo2', 'bar2')
-  const result = await getState('foo2')
-  t.is(result, 'bar2')
+test('state set and get', async t => {
+  set('foo', 'bar')
+  const result = await get('foo')
+  t.is(result, 'bar')
+})
+
+test('state hset and hget', async t => {
+  hset('hfoo', 'bar', 'nip')
+  const result = await hget('hfoo', 'bar')
+  t.is(result, 'nip')
+})
+
+test('state del', async t => {
+  del('foo')
+  del('hfoo')
+  t.pass()
 })

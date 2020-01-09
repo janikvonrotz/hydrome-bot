@@ -1,5 +1,8 @@
 var redis = require('redis')
-const { promisify } = require('util')
+var bluebird = require('bluebird')
+
+// Promisify all redis methods
+bluebird.promisifyAll(redis)
 
 // Create cached connection variable
 let cachedClient = null
@@ -22,11 +25,4 @@ const createClient = (uri) => {
   return client
 }
 
-// Function that returns redis client
-const db = () => {
-  var client = createClient(process.env.REDIS_URI)
-  client.getAsync = promisify(client.get).bind(client)
-  return client
-}
-
-module.exports = db
+module.exports = createClient(process.env.REDIS_URI)
