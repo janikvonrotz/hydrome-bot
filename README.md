@@ -1,8 +1,8 @@
-# MonsteraBot
+# HydromeBot
 
-Monstera is a houseplant that needs water as every other plant. MonsteraBot is a Telegram bot that reminds you to water your plants. It runs as a serverless function on [Now](https://zeit.co/download), uses [RedisLabs](https://app.redislabs.com/) to store its state and utilizes [GitHub Actions](https://github.com/features/actions) to schedule reminders.
+HydromeBot is a Telegram bot that reminds you to water your plants. It runs as a serverless function on [Now](https://zeit.co/download), uses [RedisLabs](https://app.redislabs.com/) to store its state and utilizes [GitHub Actions](https://github.com/features/actions) to schedule reminders.
 
-Telegram link: [t.me/MonsteraBot](https://t.me/MonsteraBot)
+Telegram link: [t.me/HydromeBot](https://t.me/HydromeBot)
 
 ## Setup
 
@@ -26,8 +26,8 @@ Export these variables to your current session.
 Set these variables as now secrets.
 
 ```
-now secrets add monstera_bot_telegram_token $TELEGRAM_TOKEN
-now secrets add monstera_bot_redis_uri $REDIS_URI
+now secrets add hydrome_bot_telegram_token $TELEGRAM_TOKEN
+now secrets add hydrome_bot_redis_uri $REDIS_URI
 ```
 
 Deploy with now.
