@@ -2,6 +2,10 @@
 require('dotenv').config()
 const start = require('./start')
 const newreminder = require('./newreminder')
+const listreminders = require('./listreminders')
+const deletereminder = require('./deletereminder')
+const editreminder = require('./editreminder')
+const about = require('./about.js')
 const { get } = require('./state')
 
 module.exports = async (req, res) => {
@@ -25,7 +29,7 @@ module.exports = async (req, res) => {
       request: await get(`request:${message.chat.id}`)
     }
 
-    // Request is either current state if set or message text 
+    // Request is either current state if set or message text
     ctx.request = ctx.request || message.text
     console.log('CTX', ctx)
 
@@ -36,6 +40,22 @@ module.exports = async (req, res) => {
 
     if (ctx.request.match('/newreminder(.*)')) {
       await newreminder(message, ctx)
+    }
+
+    if (ctx.request.match('/editreminder(.*)')) {
+      await editreminder(message, ctx)
+    }
+
+    if (ctx.request.match('/listreminders(.*)')) {
+      await listreminders(message, ctx)
+    }
+
+    if (ctx.request.match('/deletereminder(.*)')) {
+      await deletereminder(message, ctx)
+    }
+
+    if (ctx.request.match('/about(.*)')) {
+      await about(message, ctx)
     }
   }
 

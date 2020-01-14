@@ -1,5 +1,4 @@
 const sendMessage = require('./send-message')
-const { hkeys } = require('./state')
 
 // Processes messages matching /start
 module.exports = async (message) => {
@@ -7,16 +6,6 @@ module.exports = async (message) => {
 
   await sendMessage({
     chat_id: chatId,
-    text: 'Hi, I am HydromeBot. Let me know if I should remind you of watering your plants.'
+    text: 'Hi, I am HydromeBot. Let me know if I should remind you of watering your plants. Use /newreminder to get started.'
   })
-
-  // Get all existing reminders
-  const reminderKeys = await hkeys(`reminder:${chatId}`)
-
-  if (reminderKeys) {
-    await sendMessage({
-      chat_id: chatId,
-      text: `Here are your registered reminders:\n1) ${reminderKeys[0]}`
-    })
-  }
 }

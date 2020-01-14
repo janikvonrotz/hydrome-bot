@@ -18,5 +18,8 @@ module.exports = {
   },
   hkeys: async (hash) => {
     return db.hkeysAsync(hash)
+  },
+  hdel: async (hash, field) => {
+    return db.hdelAsync(hash, field)
   }
 }

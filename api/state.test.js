@@ -1,6 +1,6 @@
 require('dotenv').config()
 const test = require('ava')
-const { set, get, del, hset, hget, hkeys } = require('./state')
+const { set, get, del, hset, hget, hkeys, hdel } = require('./state')
 
 test('state set and get', async t => {
   set('foo', 'bar')
@@ -14,17 +14,19 @@ test.serial('state hset and hget', async t => {
   t.is(result, 'nip')
 })
 
-test.serial('state iterate hashset', async t => {
+test.serial('state iterate hashset and hdel', async t => {
   hset('fooset', 'bar1', 'nip')
   hset('fooset', 'bar2', 'nip')
   hset('fooset', 'bar3', 'nip')
 
   const set = await hkeys('fooset')
-  const result = set.map(async (field) => {
+  let result = set.map(async (field) => {
     return hget('fooset', field)
   })
-
   t.is(result.length, 3)
+
+  result = await hdel('fooset', 'bar3')
+  t.is(result, 1)
 })
 
 test.serial('state del', async t => {

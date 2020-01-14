@@ -40,6 +40,12 @@ Then set the Telegram bot wehook with curl.
 
 Test the bot by writing `/start`.
 
+### GitHub Action
+
+The `send-reminder.js` script is used by GitHub action to schedule reminder. See `.github/workflows.nodejs.yml` for details.
+
+The runner authenticated with the Telegram token. In order to enable GitHub Action for your cloned repo you must add the Telegram token as a repo secret.
+
 ## Troubleshooting
 
 Check status on your webhook.
