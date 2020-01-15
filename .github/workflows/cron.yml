@@ -17,9 +17,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: yarn install and run job
+    - name: npm install and run job
       run: |
-        yarn
-        yarn job
+        npm install
+        npm run job
       env:
         TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
