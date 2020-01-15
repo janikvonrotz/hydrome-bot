@@ -1,5 +1,9 @@
 # TODO
 
+## Features
+
+- [ ] Batch notifications
+
 ## Dialog Chain
 
 - [ ] Allow to abort delete reminder action

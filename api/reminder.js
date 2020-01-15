@@ -22,11 +22,11 @@ class Reminder {
   }
 
   setLastRun (value) {
-    this.name = value
+    this.last_run = value
   }
 
   getLastRun () {
-    return this.last_run
+    return new Date(this.last_run)
   }
 
   getCreatedAt () {
