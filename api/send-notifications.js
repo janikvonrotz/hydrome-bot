@@ -13,12 +13,16 @@ module.exports = async (req, res) => {
     // Get all reminder sets
     const reminderSetKeys = await keys('reminder:*')
 
+    console.log('REMINDERSETKEYS', reminderSetKeys)
+
     reminderSetKeys.forEach(async key => {
       // Set chat id
       const chatId = key.split(':')[1]
 
       // Get all fields of set
       const reminderKeys = await hkeys(key)
+
+      console.log('REMINDERKEYS', reminderKeys)
 
       reminderKeys.forEach(async field => {
         // Get reminder
