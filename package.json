@@ -18,6 +18,7 @@
   },
   "scripts": {
     "test": "ava",
-    "lint": "standard"
+    "lint": "standard",
+    "job": "node scripts/job-notifications.js"
   }
 }

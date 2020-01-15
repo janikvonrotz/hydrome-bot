@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
 
     console.log('REMINDERSETKEYS', reminderSetKeys)
 
-    reminderSetKeys.forEach(async key => {
+    await reminderSetKeys.forEach(async key => {
       // Set chat id
       const chatId = key.split(':')[1]
 
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
 
       console.log('REMINDERKEYS', reminderKeys)
 
-      reminderKeys.forEach(async field => {
+      await reminderKeys.forEach(async field => {
         // Get reminder
         const reminder = Object.setPrototypeOf(JSON.parse(await hget(key, field)), Reminder.prototype)
 

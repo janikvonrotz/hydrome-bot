@@ -1,4 +1,4 @@
-name: CI
+name: cron
 
 on: [push]
 
@@ -7,9 +7,19 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [12.x]
+
     steps:
     - uses: actions/checkout@v1
-    - name: Call send notification api
-      run: send-notifications.sh
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: yarn install and run job
+      run: |
+        yarn
+        yarn job
       env:
         TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
