@@ -10,6 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Call send notification api
-      run: curl -X POST -H 'Content-Type: application/json' -d "{\"token\": \"$TELEGRAM_TOKEN\"}" https://hydrome-bot.now.sh/api/send-notifications
+      run: send-notifications.sh
       env:
         TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
