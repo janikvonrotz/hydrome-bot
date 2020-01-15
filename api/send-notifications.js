@@ -20,9 +20,13 @@ module.exports = async (req, res) => {
       // Get all fields of set
       const reminderKeys = await hkeys(key)
 
+      console.log('REMINDERKEYS', reminderKeys)
+
       await reminderKeys.forEach(async field => {
         // Get reminder
         const reminder = Object.setPrototypeOf(JSON.parse(await hget(key, field)), Reminder.prototype)
+
+        console.log('REMINDER', reminder)
 
         // Calculate reminder run
         const now = new Date()
@@ -34,7 +38,7 @@ module.exports = async (req, res) => {
 
         // Check if reminder is due
         if (now < scheduledFor) {
-          console.log('SEND MESSAGE', chatId, text)
+          console.log('SEND MESSAGE', chatId)
           await sendMessage({
             chat_id: chatId,
             text: text
