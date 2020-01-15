@@ -13,6 +13,8 @@ module.exports = async (req, res) => {
     // Get all reminder sets
     const reminderSetKeys = await keys('reminder:*')
 
+    console.log('REMINDERSETKEYS', reminderSetKeys)
+
     await reminderSetKeys.forEach(async key => {
       // Set chat id
       const chatId = key.split(':')[1]
@@ -39,11 +41,11 @@ module.exports = async (req, res) => {
         // Check if reminder is due
         if (now < scheduledFor) {
           console.log('SEND MESSAGE', chatId)
-          await sendMessage({
+          const result = await sendMessage({
             chat_id: chatId,
             text: text
           })
-
+          console.log('RESULT', result)
           // Update reminder last run
           reminder.setLastRun(now)
           await hset(key, field, JSON.stringify(reminder))
@@ -54,4 +56,7 @@ module.exports = async (req, res) => {
     // Send default message
     res.end('Reminder notifications processed.')
   }
+
+  // Send default message
+  res.end('This is the HydroMeBot API.')
 }

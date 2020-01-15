@@ -10,7 +10,7 @@ module.exports = async (body, options) => {
     body.disable_notification = options.disable_notification
   }
 
-  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+  return fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)

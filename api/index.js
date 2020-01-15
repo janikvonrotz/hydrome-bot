@@ -60,5 +60,5 @@ module.exports = async (req, res) => {
   }
 
   // Send default message
-  res.end('This is the HydromeBot API.')
+  res.end('This is the HydroMeBot API.')
 }
