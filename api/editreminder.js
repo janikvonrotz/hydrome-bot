@@ -16,9 +16,14 @@ module.exports = async (message, ctx) => {
 
   if (ctx.request === '/editreminder') {
     if (reminderKeys) {
-      const reminderPrint = reminderKeys.map(key => {
-        return `\n${reminderKeys.indexOf(key) + 1}) ${key}`
-      })
+      // Create printable list for reminder set
+      const reminderPrint = await Promise.all(reminderKeys.map(async key => {
+        // Get details of reminder
+        const reminder = Object.setPrototypeOf(JSON.parse(await hget(reminderSetKey, key)), Reminder.prototype)
+
+        // Return printable list entry
+        return `\n${reminderKeys.indexOf(key) + 1}) ${reminder.getName()} (${scheduleOptions[reminder.getSchedule()].display})`
+      }))
 
       await sendMessage({
         chat_id: chatId,
@@ -26,7 +31,7 @@ module.exports = async (message, ctx) => {
       })
 
       // Set state
-      set(requestId, '/editreminder/select')
+      await set(requestId, '/editreminder/select')
     } else {
       await sendMessage({
         chat_id: chatId,
@@ -38,17 +43,18 @@ module.exports = async (message, ctx) => {
   if (ctx.request === '/editreminder/select') {
     // Get key by index
     const reminderKey = reminderKeys[message.text - 1]
+    const reminder = Object.setPrototypeOf(JSON.parse(await hget(reminderSetKey, reminderKey)), Reminder.prototype)
 
     await sendMessage({
       chat_id: chatId,
-      text: `Enter a new name for ${reminderKey}:`
+      text: `Enter a new name for ${reminder.getName()}:`
     })
 
     // Set state
-    set(requestId, '/editreminder/name')
+    await set(requestId, '/editreminder/name')
 
     // Save key of current reminder
-    set(reminderEditKey, reminderKey)
+    await set(reminderEditKey, reminderKey)
   }
 
   if (ctx.request === '/editreminder/name') {
@@ -63,7 +69,7 @@ module.exports = async (message, ctx) => {
     // Get reminder from hashset and update name
     const reminder = Object.setPrototypeOf(JSON.parse(await hget(reminderSetKey, reminderKey)), Reminder.prototype)
     reminder.setName(message.text)
-    hset(reminderSetKey, reminder.getName(), JSON.stringify(reminder))
+    await hset(reminderSetKey, reminderKey, JSON.stringify(reminder))
 
     // Ask for the interval
     await sendMessage({
@@ -75,13 +81,13 @@ module.exports = async (message, ctx) => {
     })
 
     // Set state
-    set(requestId, '/editreminder/schedule')
+    await set(requestId, '/editreminder/schedule')
   }
 
   if (ctx.request === '/editreminder/schedule') {
     await sendMessage({
       chat_id: chatId,
-      text: `The new schedule is: ${scheduleOptions[message.data]}`
+      text: `The new schedule is: ${scheduleOptions[message.data].display}`
     })
 
     // Get reminder edit key
@@ -90,7 +96,7 @@ module.exports = async (message, ctx) => {
     // Get reminder from hashset and update schedule
     const reminder = Object.setPrototypeOf(JSON.parse(await hget(reminderSetKey, reminderKey)), Reminder.prototype)
     reminder.setSchedule(message.data)
-    hset(reminderSetKey, reminder.getName(), JSON.stringify(reminder))
+    await hset(reminderSetKey, reminderKey, JSON.stringify(reminder))
 
     await sendMessage({
       chat_id: chatId,
@@ -98,9 +104,9 @@ module.exports = async (message, ctx) => {
     })
 
     // Del reminder edit
-    del(reminderEditKey)
+    await del(reminderEditKey)
 
     // Delete request state
-    del(requestId)
+    await del(requestId)
   }
 }

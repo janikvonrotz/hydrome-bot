@@ -1,5 +1,7 @@
 const sendMessage = require('./send-message')
-const { hkeys, set, hdel, del } = require('./state')
+const { hkeys, set, hdel, del, hget } = require('./state')
+const scheduleOptions = require('./schedule-options')
+const Reminder = require('./reminder')
 
 // Processes messages matching /deletereminder
 module.exports = async (message, ctx) => {
@@ -12,9 +14,14 @@ module.exports = async (message, ctx) => {
 
   if (ctx.request === '/deletereminder') {
     if (reminderKeys.length >= 1) {
-      const reminderPrint = reminderKeys.map(key => {
-        return `\n${reminderKeys.indexOf(key) + 1}) ${key}`
-      })
+      // Create printable list for reminder set
+      const reminderPrint = await Promise.all(reminderKeys.map(async key => {
+        // Get details of reminder
+        const reminder = Object.setPrototypeOf(JSON.parse(await hget(reminderSetKey, key)), Reminder.prototype)
+
+        // Return printable list entry
+        return `\n${reminderKeys.indexOf(key) + 1}) ${reminder.getName()} (${scheduleOptions[reminder.getSchedule()].display})`
+      }))
 
       await sendMessage({
         chat_id: chatId,
@@ -39,6 +46,7 @@ module.exports = async (message, ctx) => {
 
     // Get key by index
     const reminderKey = reminderKeys[message.text - 1]
+    const reminder = Object.setPrototypeOf(JSON.parse(await hget(reminderSetKey, reminderKey)), Reminder.prototype)
 
     // Delete field in hashset
     const deleted = await hdel(reminderSetKey, reminderKey)
@@ -46,7 +54,7 @@ module.exports = async (message, ctx) => {
     if (deleted === 1) {
       await sendMessage({
         chat_id: chatId,
-        text: `Reminder ${reminderKey} has been deleted.`
+        text: `Reminder ${reminder.getName()} has been deleted.`
       })
     } else {
       await sendMessage({
@@ -56,6 +64,6 @@ module.exports = async (message, ctx) => {
     }
 
     // Delete request state
-    del(requestId)
+    await del(requestId)
   }
 }

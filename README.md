@@ -48,6 +48,6 @@ The runner authenticated with the Telegram token. In order to enable GitHub Acti
 
 ## Troubleshooting
 
-Check status on your webhook.
+Check status of the webhook.
 
 `curl https://api.telegram.org/bot$TELEGRAM_TOKEN/getWebhookInfo`

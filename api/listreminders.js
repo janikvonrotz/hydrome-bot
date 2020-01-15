@@ -11,19 +11,24 @@ module.exports = async (message) => {
   // Get all existing reminders
   const reminderKeys = await hkeys(reminderSetKey)
 
-  if (reminderKeys) {
+  if (reminderKeys.length >= 1) {
     // Create printable list for reminder set
     const reminderPrint = await Promise.all(reminderKeys.map(async key => {
       // Get details of reminder
       const reminder = Object.setPrototypeOf(JSON.parse(await hget(reminderSetKey, key)), Reminder.prototype)
 
       // Return printable list entry
-      return `\n${reminderKeys.indexOf(key) + 1}) ${key} (${scheduleOptions[reminder.getSchedule()]})`
+      return `\n${reminderKeys.indexOf(key) + 1}) ${reminder.getName()} (${scheduleOptions[reminder.getSchedule()].display})`
     }))
 
     await sendMessage({
       chat_id: chatId,
       text: `Here are your registered reminders:${reminderPrint}`
+    })
+  } else {
+    await sendMessage({
+      chat_id: chatId,
+      text: 'You do not have any reminder yet. Use /newreminder to add one.'
     })
   }
 }

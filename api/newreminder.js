@@ -1,5 +1,5 @@
 const sendMessage = require('./send-message')
-const { set, del, get, hset } = require('./state')
+const { set, del, get, hset, incr } = require('./state')
 const Reminder = require('./reminder')
 const scheduleButtons = require('./schedule-buttons')
 const scheduleOptions = require('./schedule-options')
@@ -20,7 +20,7 @@ module.exports = async (message, ctx) => {
 
     // Create new reminder and store plant name
     const reminder = new Reminder(message.text)
-    set(reminderEditKey, JSON.stringify(reminder))
+    await set(reminderEditKey, JSON.stringify(reminder))
 
     // Ask for the interval
     await sendMessage({
@@ -32,7 +32,7 @@ module.exports = async (message, ctx) => {
     })
 
     // Set state
-    set(requestId, '/newreminder/schedule')
+    await set(requestId, '/newreminder/schedule')
   }
 
   if (ctx.request === '/newreminder') {
@@ -43,13 +43,13 @@ module.exports = async (message, ctx) => {
     })
 
     // Set state
-    set(requestId, '/newreminder/name')
+    await set(requestId, '/newreminder/name')
   }
 
   if (ctx.request === '/newreminder/schedule') {
     await sendMessage({
       chat_id: chatId,
-      text: `You have chosen: ${scheduleOptions[message.data]}`
+      text: `You have chosen: ${scheduleOptions[message.data].display}`
     })
 
     // Get reminder edit
@@ -58,8 +58,11 @@ module.exports = async (message, ctx) => {
     // Set schedule
     reminder.setSchedule(message.data)
 
+    // Generate Id
+    const reminderKey = await incr('key:reminder')
+
     // Save reminder
-    hset(reminderSetKey, reminder.getName(), JSON.stringify(reminder))
+    await hset(reminderSetKey, reminderKey, JSON.stringify(reminder))
 
     await sendMessage({
       chat_id: chatId,
@@ -67,9 +70,9 @@ module.exports = async (message, ctx) => {
     })
 
     // Del reminder edit
-    del(reminderEditKey)
+    await del(reminderEditKey)
 
     // Delete request state
-    del(requestId)
+    await del(requestId)
   }
 }
