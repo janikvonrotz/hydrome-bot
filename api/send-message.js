@@ -1,14 +1,11 @@
 const fetch = require('node-fetch')
 
 // Sends messages to Telegram API
-module.exports = async (body, options) => {
+module.exports = async (body) => {
   const token = process.env.TELEGRAM_TOKEN
 
-  // Disable notification
-  body.disable_notification = true
-  if (options && options.disable_notification) {
-    body.disable_notification = options.disable_notification
-  }
+  // Disable notification as default
+  body.disable_notification = !body.enable_notifications
 
   return fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: 'POST',

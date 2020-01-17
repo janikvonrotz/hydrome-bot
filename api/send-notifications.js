@@ -5,7 +5,7 @@ const scheduleOptions = require('./schedule-options')
 const sendMessage = require('./send-message')
 
 module.exports = async (req, res) => {
-  console.log('BODY: ', req.body)
+  console.log('BODY', req.body)
 
   // Validate token
   const token = process.env.TELEGRAM_TOKEN
@@ -13,22 +13,16 @@ module.exports = async (req, res) => {
     // Get all reminder sets
     const reminderSetKeys = await keys('reminder:*')
 
-    console.log('REMINDERSETKEYS', reminderSetKeys)
-
-    await reminderSetKeys.forEach(async key => {
+    for (const key of reminderSetKeys) {
       // Set chat id
       const chatId = key.split(':')[1]
 
       // Get all fields of set
       const reminderKeys = await hkeys(key)
 
-      console.log('REMINDERKEYS', reminderKeys)
-
-      await reminderKeys.forEach(async field => {
+      for (const field of reminderKeys) {
         // Get reminder
         const reminder = Object.setPrototypeOf(JSON.parse(await hget(key, field)), Reminder.prototype)
-
-        console.log('REMINDER', reminder)
 
         // Calculate reminder run
         const now = new Date()
@@ -39,19 +33,19 @@ module.exports = async (req, res) => {
         text += `\nThis reminder is set to run ${scheduleOptions[reminder.getSchedule()].display}.`
 
         // Check if reminder is due
-        if (now < scheduledFor) {
-          console.log('SEND MESSAGE', chatId)
-          const result = await sendMessage({
+        if (now > scheduledFor) {
+          await sendMessage({
             chat_id: chatId,
-            text: text
+            text: text,
+            enable_notifications: true
           })
-          console.log('RESULT', result)
+
           // Update reminder last run
           reminder.setLastRun(now)
           await hset(key, field, JSON.stringify(reminder))
         }
-      })
-    })
+      }
+    }
 
     // Send default message
     res.end('Reminder notifications processed.')

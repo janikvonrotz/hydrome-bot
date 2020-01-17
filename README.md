@@ -42,9 +42,11 @@ Test the bot by writing `/start`.
 
 ### GitHub Action
 
-The `send-reminder.js` script is used by GitHub action to schedule reminder. See `.github/workflows.nodejs.yml` for details.
+The `send-notifications.js` script is used by GitHub Action to schedule reminder notifications. See `.github/workflows/cron.yml` for details.
 
-The runner authenticated with the Telegram token. In order to enable GitHub Action for your cloned repo you must add the Telegram token as a repo secret.
+The runner authenticates with the Telegram token. In order to enable GitHub Action for your cloned repo you must add the Telegram token as a repo secret.
+
+Further change the static url in `script/job-notifications.js`.
 
 ## Troubleshooting
 

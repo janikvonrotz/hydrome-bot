@@ -9,7 +9,7 @@ const about = require('./about.js')
 const { get } = require('./state')
 
 module.exports = async (req, res) => {
-  console.log('BODY: ', req.body)
+  console.log('BODY', req.body)
 
   // Check if Telegram message
   if (req.body && (req.body.message || req.body.callback_query)) {
@@ -31,7 +31,6 @@ module.exports = async (req, res) => {
 
     // Request is either current state if set or message text
     ctx.request = ctx.request || message.text
-    console.log('CTX', ctx)
 
     // Match text request
     if (ctx.request.match('/start(.*)')) {
