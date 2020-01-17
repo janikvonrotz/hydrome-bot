@@ -7,6 +7,7 @@ const deletereminder = require('./deletereminder')
 const editreminder = require('./editreminder')
 const about = require('./about.js')
 const { get } = require('./state')
+const sendMessage = require('./send-message')
 
 module.exports = async (req, res) => {
   console.log('BODY', req.body)
@@ -22,6 +23,11 @@ module.exports = async (req, res) => {
     if (req.body.callback_query) {
       message = req.body.callback_query.message
       message.data = req.body.callback_query.data
+
+      // Answer callback query
+      sendMessage({
+        callback_query_id: req.body.callback_query.id
+      }, 'answerCallbackQuery')
     }
 
     // Build context
