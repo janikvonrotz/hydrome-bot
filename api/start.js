@@ -6,6 +6,6 @@ module.exports = async (message) => {
 
   await sendMessage({
     chat_id: chatId,
-    text: '🙋 Hi, I am HydromeBot. Let me know if I should remind you of 💧 watering your 🌱 plants. Use /newreminder to get started.'
+    text: '🙋 Hi, I am HydroMeBot. Let me know if I should remind you of 💧 watering your 🌱 plants. Use /newreminder to get started.'
   })
 }

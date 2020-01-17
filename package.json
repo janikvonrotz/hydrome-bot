@@ -1,7 +1,7 @@
 {
   "name": "hydrome-bot",
   "version": "1.0.0",
-  "description": "HydromeBot is a Telegram bot that reminds you to water your plants.",
+  "description": "HydroMeBot is a Telegram bot that reminds you to water your plants.",
   "main": "api/index.js",
   "author": "Janik Vonrotz",
   "license": "MIT",
