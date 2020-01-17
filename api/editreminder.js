@@ -27,7 +27,7 @@ module.exports = async (message, ctx) => {
 
       await sendMessage({
         chat_id: chatId,
-        text: `Which reminder would you like to edit?${reminderPrint}`
+        text: `Which ⏰ reminder would you like to edit?${reminderPrint}`
       })
 
       // Set state
@@ -74,7 +74,7 @@ module.exports = async (message, ctx) => {
     // Ask for the interval
     await sendMessage({
       chat_id: chatId,
-      text: 'Select the new reminder schedule:',
+      text: 'Select the new reminder 📆 schedule:',
       reply_markup: {
         inline_keyboard: [scheduleButtons]
       }
@@ -100,7 +100,7 @@ module.exports = async (message, ctx) => {
 
     await sendMessage({
       chat_id: chatId,
-      text: 'Your reminder has been updated!'
+      text: 'Your reminder has been ✅ updated!'
     })
 
     // Del reminder edit

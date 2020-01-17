@@ -15,7 +15,7 @@ module.exports = async (message, ctx) => {
   if (ctx.request === '/newreminder/name') {
     await sendMessage({
       chat_id: chatId,
-      text: `Your plants name is: ${message.text}`
+      text: `Your 🌱 plants name is: ${message.text}`
     })
 
     // Create new reminder and store plant name
@@ -25,7 +25,7 @@ module.exports = async (message, ctx) => {
     // Ask for the interval
     await sendMessage({
       chat_id: chatId,
-      text: 'At which interval would you like to be remindend?',
+      text: 'At which 📆 interval would you like to be remindend?',
       reply_markup: {
         inline_keyboard: [scheduleButtons]
       }
@@ -66,7 +66,7 @@ module.exports = async (message, ctx) => {
 
     await sendMessage({
       chat_id: chatId,
-      text: 'Your reminder has been saved!'
+      text: 'Your reminder has been ✅ saved!'
     })
 
     // Del reminder edit

@@ -25,7 +25,7 @@ module.exports = async (message, ctx) => {
 
       await sendMessage({
         chat_id: chatId,
-        text: `Which reminder would you like to delete?${reminderPrint}`
+        text: `Which ⏰ reminder would you like to delete?${reminderPrint}`
       })
 
       // Set state
@@ -41,7 +41,7 @@ module.exports = async (message, ctx) => {
   if (ctx.request === '/deletereminder/select') {
     await sendMessage({
       chat_id: chatId,
-      text: `You haven chosen number ${message.text} to be deleted.`
+      text: `You haven chosen reminder number ${message.text} to be deleted.`
     })
 
     // Get key by index
