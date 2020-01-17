@@ -27,7 +27,8 @@ module.exports = async (req, res) => {
         // Calculate reminder run
         const now = new Date()
         const scheduledFor = new Date()
-        scheduledFor.setDate(reminder.getLastRun().getDate() + scheduleOptions[reminder.getSchedule()].days)
+        // Get date of last run and deduct amount of day according to schedule and half a day
+        scheduledFor.setDate(reminder.getLastRun().getDate() + scheduleOptions[reminder.getSchedule()].days - 0.5)
 
         let text = `Hey there, just wanna let you know that your plant ${reminder.getName()} needs some water.`
         text += `\nThis reminder is set to run ${scheduleOptions[reminder.getSchedule()].display}.`
