@@ -1,5 +1,7 @@
 // Load env config
 require('dotenv').config()
+
+// Import modules
 const start = require('./start')
 const newreminder = require('./newreminder')
 const listreminders = require('./listreminders')
