@@ -17,6 +17,7 @@
 
 ## Bugs
 
+- [ ] Get days of month instead of simply using 30
 - [ ] Lists of reminders have a comma on each line
 
 # DONE
