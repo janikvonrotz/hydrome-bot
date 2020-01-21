@@ -1,8 +1,7 @@
 const sendMessage = require('./send-message')
 const { set, del, get, hset, incr } = require('./redis')
 const Reminder = require('./reminder')
-const scheduleButtons = require('./schedule-buttons')
-const scheduleOptions = require('./schedule-options')
+const { scheduleOptions, scheduleButtons } = require('./options')
 
 // Processes messages matching /newreminder
 module.exports = async (message, ctx) => {

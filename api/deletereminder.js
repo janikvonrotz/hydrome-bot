@@ -1,6 +1,6 @@
 const sendMessage = require('./send-message')
 const { hkeys, set, hdel, del, hget } = require('./redis')
-const scheduleOptions = require('./schedule-options')
+const { scheduleOptions } = require('./options')
 const Reminder = require('./reminder')
 
 // Processes messages matching /deletereminder

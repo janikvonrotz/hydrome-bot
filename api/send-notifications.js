@@ -1,7 +1,7 @@
 require('dotenv').config()
 const { keys, hkeys, hget, hset } = require('./redis')
 const Reminder = require('./reminder')
-const scheduleOptions = require('./schedule-options')
+const { scheduleOptions } = require('./options')
 const sendMessage = require('./send-message')
 
 module.exports = async (req, res) => {
