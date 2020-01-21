@@ -8,7 +8,7 @@ const listreminders = require('./listreminders')
 const deletereminder = require('./deletereminder')
 const editreminder = require('./editreminder')
 const about = require('./about.js')
-const { get } = require('./state')
+const { get } = require('./redis')
 const sendMessage = require('./send-message')
 
 module.exports = async (req, res) => {

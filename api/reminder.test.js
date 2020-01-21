@@ -1,7 +1,7 @@
 const Reminder = require('./reminder')
 require('dotenv').config()
 const test = require('ava')
-const { set, get, del } = require('./state')
+const { set, get, del } = require('./redis')
 
 test.serial('reminder set and get', async t => {
   let reminder = new Reminder('foo')

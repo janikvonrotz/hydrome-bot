@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { keys, hkeys, hget, hset } = require('./state')
+const { keys, hkeys, hget, hset } = require('./redis')
 const Reminder = require('./reminder')
 const scheduleOptions = require('./schedule-options')
 const sendMessage = require('./send-message')

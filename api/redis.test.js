@@ -1,6 +1,6 @@
 require('dotenv').config()
 const test = require('ava')
-const { set, get, del, hset, hget, hkeys, hdel, incr } = require('./state')
+const { set, get, del, hset, hget, hkeys, hdel, incr } = require('./redis')
 
 test('state set and get', async t => {
   await set('foo', 'bar')

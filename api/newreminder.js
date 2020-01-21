@@ -1,5 +1,5 @@
 const sendMessage = require('./send-message')
-const { set, del, get, hset, incr } = require('./state')
+const { set, del, get, hset, incr } = require('./redis')
 const Reminder = require('./reminder')
 const scheduleButtons = require('./schedule-buttons')
 const scheduleOptions = require('./schedule-options')
