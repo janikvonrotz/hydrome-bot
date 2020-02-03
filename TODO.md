@@ -1,5 +1,9 @@
 # TODO
 
+## Design
+
+- [ ] Replace logo https://www.flaticon.com/free-icon/plant_2493100
+
 ## Clean code
 
 - [ ] Separate module for reminderPrint list
