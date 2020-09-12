@@ -9,7 +9,7 @@
     "bluebird": "^3.7.2",
     "db": "./db",
     "dotenv": "^8.2.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "redis": "^2.8.0"
   },
   "devDependencies": {
